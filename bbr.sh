@@ -64,12 +64,12 @@ installbbr(){
 		echo -e "检测到 ${deb_total} 个其余内核，开始卸载..."
 		for((integer = 1; integer <= ${deb_total}; integer++))
 		do
-			deb_del=`dpkg -l|grep linux-image | awk '{print $2}' | grep -v "4.10.15" | head -${integer}`
+			deb_del=`dpkg -l|grep linux-image | awk '{print $2}' | grep -v "4.16.0" | head -${integer}`
 			echo -e "开始卸载 ${deb_del} 内核..."
 			apt-get purge -y ${deb_del}
 			echo -e "卸载 ${deb_del} 内核卸载完成，继续..."
 		done
-		deb_total=`dpkg -l|grep linux-image | awk '{print $2}' | grep -v "4.10.15" | wc -l`
+		deb_total=`dpkg -l|grep linux-image | awk '{print $2}' | grep -v "4.16.0" | wc -l`
 		if [ "${deb_total}" = "0" ]; then
 			echo -e "内核卸载完毕，继续..."
 		else
