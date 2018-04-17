@@ -39,16 +39,16 @@ installbbr(){
 	apt-get install make gcc-4.9 -y
 
 
-	#Download Kernel V4.10
-	wget -O headers-all.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.10.15/linux-headers-4.10.15-041015_4.10.15-041015.201705080411_all.deb
+	#Download Kernel V4.16
+	wget -O headers-all.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.16/linux-headers-4.16.0-041600_4.16.0-041600.201804012230_all.deb
 	dpkg -i headers-all.deb
 
 	if [[ ${bit} == "i386" ]]; then
-		wget --no-check-certificate -O headers.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.10.15/linux-headers-4.10.15-041015-generic_4.10.15-041015.201705080411_i386.deb
-		wget --no-check-certificate -O image.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.10.15/linux-image-4.10.15-041015-generic_4.10.15-041015.201705080411_i386.deb
+		wget --no-check-certificate -O headers.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.16/linux-headers-4.16.0-041600-generic_4.16.0-041600.201804012230_i386.deb
+		wget --no-check-certificate -O image.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.16/linux-image-4.16.0-041600-generic_4.16.0-041600.201804012230_i386.deb
 	elif [[ ${bit} == "x86_64" ]]; then
-		wget --no-check-certificate -O headers.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.10.15/linux-headers-4.10.15-041015-generic_4.10.15-041015.201705080411_amd64.deb
-		wget --no-check-certificate -O image.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.10.15/linux-image-4.10.15-041015-generic_4.10.15-041015.201705080411_amd64.deb
+		wget --no-check-certificate -O headers.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.16/linux-headers-4.16.0-041600-generic_4.16.0-041600.201804012230_arm64.deb
+		wget --no-check-certificate -O image.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.16/linux-image-4.16.0-041600-generic_4.16.0-041600.201804012230_arm64.deb
 	else
 			echo -e "不支持 ${bit} !" && exit 1
 	fi
