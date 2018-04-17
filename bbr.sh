@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+##!/usr/bin/env bash
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
@@ -35,18 +35,17 @@ dir=`pwd`
 installbbr(){
 	#Install GCC
 	apt-get update
-	apt-get -f install
 	apt-get install build-essential -y
 	apt-get install make gcc-4.9 -y
 
 
-	#Download Kernel V4.17
-	wget -O headers-all.deb headers-all.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.17-rc1/linux-headers-4.17.0-041700rc1_4.17.0-041700rc1.201804152230_all.deb
+	#Download Kernel V4.10
+	wget -O headers-all.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.17-rc1/linux-headers-4.17.0-041700rc1_4.17.0-041700rc1.201804152230_all.deb
 	dpkg -i headers-all.deb
 
-	if [[ ${bit} == "i386" ]]; thendeb
-		wget --no-check-certificate -O headers.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.16/linux-headers-4.16.0-041600-generic_4.16.0-041600.201804012230_amd64.deb
-		wget --no-check-certificate -O image.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.16/linux-image-4.16.0-041600-generic_4.16.0-041600.201804012230_i386.deb
+	if [[ ${bit} == "i386" ]]; then
+		wget --no-check-certificate -O headers.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.10.15/linux-headers-4.10.15-041015-generic_4.10.15-041015.201705080411_i386.deb
+		wget --no-check-certificate -O image.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.10.15/linux-image-4.10.15-041015-generic_4.10.15-041015.201705080411_i386.deb
 	elif [[ ${bit} == "x86_64" ]]; then
 		wget --no-check-certificate -O headers.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.17-rc1/linux-headers-4.17.0-041700rc1-generic_4.17.0-041700rc1.201804152230_amd64.deb
 		wget --no-check-certificate -O image.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.17-rc1/linux-image-4.17.0-041700rc1-generic_4.17.0-041700rc1.201804152230_amd64.deb
@@ -102,7 +101,7 @@ startbbr(){
     	depmod -a
     	modprobe tcp_tsunami
 	rm -rf /etc/sysctl.conf
-	wget -O /etc/sysctl.conf -N --no-check-certificate https://raw.githubusercontent.com/1603034219/YankeeBBR/master/sysctl.conf
+	wget -O /etc/sysctl.conf -N --no-check-certificate https://raw.githubusercontent.com/FunctionClub/YankeeBBR/master/sysctl.conf
 	sysctl -p
     cd .. && rm -rf $dir/tsunami
 	echo "魔改版BBR启动成功！"
