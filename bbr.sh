@@ -7,6 +7,7 @@ export PATH
 #	Description: 魔改版BBR
 #	Version: 1.0
 #	Author: 雨落无声
+#   Updated: PoKaLeo
 #	Blog: https://www.zhujiboke.com
 #	From https://doub.io
 #=================================================
@@ -39,16 +40,16 @@ installbbr(){
 	apt-get install make gcc-4.9 -y
 
 
-	#Download Kernel V4.16.2
-	wget -O headers-all.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.16.2/linux-headers-4.16.2-041602_4.16.2-041602.201804121130_all.deb
+	#Download Kernel V4.12.14
+	wget -O headers-all.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.12.14/linux-headers-4.12.14-041214_4.12.14-041214.201709200843_all.deb
 	dpkg -i headers-all.deb
 
 	if [[ ${bit} == "i386" ]]; then
-		wget --no-check-certificate -O headers.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.16.2/linux-headers-4.16.2-041602-generic_4.16.2-041602.201804121130_i386.deb
-		wget --no-check-certificate -O image.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.16.2/linux-image-4.16.2-041602-generic_4.16.2-041602.201804121130_i386.deb
+		wget --no-check-certificate -O headers.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.12.14/linux-headers-4.12.14-041214-generic_4.12.14-041214.201709200843_i386.deb
+		wget --no-check-certificate -O image.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.12.14/linux-image-4.12.14-041214-generic_4.12.14-041214.201709200843_i386.deb
 	elif [[ ${bit} == "x86_64" ]]; then
-		wget --no-check-certificate -O headers.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.16.2/linux-headers-4.16.2-041602-generic_4.16.2-041602.201804121130_amd64.deb
-		wget --no-check-certificate -O image.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.16.2/linux-image-4.16.2-041602-generic_4.16.2-041602.201804121130_amd64.deb
+		wget --no-check-certificate -O headers.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.12.14/linux-headers-4.12.14-041214-generic_4.12.14-041214.201709200843_amd64.deb
+		wget --no-check-certificate -O image.deb http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.12.14/linux-image-4.12.14-041214-generic_4.12.14-041214.201709200843_amd64.deb
 	else
 			echo -e "不支持 ${bit} !" && exit 1
 	fi
@@ -59,17 +60,17 @@ installbbr(){
 	rm -rf headers.deb image.deb
 
 	#Uninstall Other Kernel
-	deb_total=`dpkg -l | grep linux-image | awk '{print $2}' | grep -v "4.16.2" | wc -l`
+	deb_total=`dpkg -l | grep linux-image | awk '{print $2}' | grep -v "4.12.14" | wc -l`
 	if [ "${deb_total}" > "1" ]; then
 		echo -e "检测到 ${deb_total} 个其余内核，开始卸载..."
 		for((integer = 1; integer <= ${deb_total}; integer++))
 		do
-			deb_del=`dpkg -l|grep linux-image | awk '{print $2}' | grep -v "4.16.2" | head -${integer}`
+			deb_del=`dpkg -l|grep linux-image | awk '{print $2}' | grep -v "4.12.14" | head -${integer}`
 			echo -e "开始卸载 ${deb_del} 内核..."
 			apt-get purge -y ${deb_del}
 			echo -e "卸载 ${deb_del} 内核卸载完成，继续..."
 		done
-		deb_total=`dpkg -l|grep linux-image | awk '{print $2}' | grep -v "4.16.2" | wc -l`
+		deb_total=`dpkg -l|grep linux-image | awk '{print $2}' | grep -v "4.12.14" | wc -l`
 		if [ "${deb_total}" = "0" ]; then
 			echo -e "内核卸载完毕，继续..."
 		else
